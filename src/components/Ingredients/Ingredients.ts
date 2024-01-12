@@ -9,5 +9,5 @@ export const INGREDIENTS: Ingredient[] = [
     {name: 'Meat', price: 80, image: meatImage},
     {name: 'Cheese', price: 50, image: cheeseImage},
     {name: 'Bacon', price: 60, image: baconImage},
-    {name: 'Greenery', price: 10, image: greenery},
+    {name: 'Salad', price: 10, image: greenery},
 ];

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styleBurger/burgerStyle.css';
 
 type BurgerProps = {
     ingredients: Record<string, number>;
@@ -13,13 +14,22 @@ const Burger: React.FC<BurgerProps> = ({ ingredients }) => {
             const count = ingredients[ingredient];
             for (let i = 0; i < count; i++) {
                 burger.push(
-                    <div key={ingredient} className={`Ингредиент ${ingredient}`} />
+                    <div key={ingredient} className={ingredient} />
                 );
             }
         }
     }
 
-    return <div className="burger">{burger}</div>;
+    return (
+        <div className="Burger">
+            <div className="BreadTop">
+                <div className="Seeds1"></div>
+                <div className="Seeds2"></div>
+            </div>
+            {burger}
+            <div className="BreadBottom"></div>
+        </div>
+    );
 };
 
 
