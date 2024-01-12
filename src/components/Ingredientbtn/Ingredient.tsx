@@ -1,26 +1,38 @@
-import {IngredientProps} from '../../types';
+import { INGREDIENTS } from '../../components/Ingredients/Ingredients.ts';
 
-function IngredientButton({ ingredient, setIngredients }: IngredientProps) {
-    const Ingredient = () => {
+type IngredientsState = Record<string, number>;
 
-        setIngredients((prevIngredients) => {
+export const resultPrice = (ingredients: IngredientsState): number => {
+    return INGREDIENTS.reduce((total, ingredient) => {
+        const count = ingredients[ingredient.name];
+        return total + (count || 0) * ingredient.price;
+    }, 30);
+};
 
-            const newIngredients = prevIngredients.map((item) => {
+export const addIngredient = (
+    ingredient: string,
+    setIngredients: React.Dispatch<React.SetStateAction<IngredientsState>>
+)=> {
+    setIngredients(prevIngredients => ({
+        ...prevIngredients,
+        [ingredient]: (prevIngredients[ingredient] || 0) + 1
+    }));
+};
 
-                if (item.name === ingredient.name) {
-                    return {...item };
-                } else {
-                    return item;
-                }
-            });
-            return newIngredients;
-        });
-    };
-    return (
-        <button onClick={Ingredient}>
-            {`${ingredient.name} - ${ingredient.price} сом`}
-        </button>
-    );
-}
+export const removeIngredient = (
+    ingredient: string,
+    setIngredients: React.Dispatch<React.SetStateAction<IngredientsState>>
+): void => {
+    setIngredients(prevIngredients => {
+        const currentCount = prevIngredients[ingredient];
 
-export default IngredientButton;
+        if (currentCount && currentCount > 0) {
+            return {
+                ...prevIngredients,
+                [ingredient]: currentCount - 1
+            };
+        } else {
+            return prevIngredients;
+        }
+    });
+};
